@@ -22,7 +22,7 @@
     </div>
     <div class="fun-footer">
         <div class="content">
-            <form id="fromSave" name="fromSave" action="/funtree/register_picker.html" target="nm_iframe" onsubmit="return beforeSubmit(this);">
+            <form id="fromSave" name="fromSave" action="/form_demo/register_picker.html" target="nm_iframe" onsubmit="return beforeSubmit(this);">
                 <div class="spacing">
                     <span class="form-span">姓名</span><input name="name" class="form-control">
                 </div>
@@ -138,7 +138,7 @@
              }, {})
             $.ajax({
                 type: 'POST',
-                url: '/funtree/register_picker.html',
+                url: '/from_demo/register_picker.html',
                 data: finalRes ,
                 dataType: 'json',
                 success: function(res){
