@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta charset="utf-8"/>
+    <meta name="renderer" content="webkit">
+    <title>表单提交demo</title>
+    <meta name="description" content=""/>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=0"/>
+    <link rel="stylesheet" href="libs/index.css"/>
+    <link rel="stylesheet" href="libs/jquery.toast.min.css"/>
+    <link rel="stylesheet" href="libs/jquery.ui.css"/>
+</head>
+<body>
+    <div class="lbOverlay" style="display: none">
+
+    </div>
+    <div class="fun-dialog" style="display: none">
+        <p style="font-size: 1.8rem;margin: 10px 0;">提交成功</p>
+        <p style="margin-bottom: 20px">我们会尽快通过电话联系您</p>
+        <p class="fun-close">好的</p>
+    </div>
+    <div class="fun-footer">
+        <div class="content">
+            <form id="fromSave" name="fromSave" action="/funtree/register_picker.html" target="nm_iframe" onsubmit="return beforeSubmit(this);">
+                <div class="spacing">
+                    <span class="form-span">姓名</span><input name="name" class="form-control">
+                </div>
+                <div class="spacing task10-main-box-shape">
+                    <span class="form-span">性别</span>
+                    <input id="shape1" name="gender" type="radio"  value="男" />
+                    <label class="form-span" for="shape1">男</label>
+                    <input id="shape2" name="gender" type="radio"  value="女" />
+                    <label class="form-span" for="shape2">女</label>
+                </div>
+                <div class="spacing">
+                    <span class="form-span">职业</span><input name="job" class="form-control">
+                </div>
+                <div class="spacing" style="position: relative">
+                    <span class="form-span">电话</span><input name="phone" style="padding-left: 9%;width: 65%" class="form-control">
+                    <div class="holder-phone">+1</div>
+                </div>
+                <div class="spacing">
+                    <span style="margin-right: 2%" class="form-span">州&nbsp;&nbsp;&nbsp;</span>
+                    <select name="state" style="width: 78%;height: 38px" class="form-control" id="selectList">
+                        <option value="">请选择州</option>
+                    </select>
+                </div>
+                <div class="spacing">
+                    <span class="form-span">市&nbsp;&nbsp;&nbsp;</span><input name="city" class="form-control">
+                </div>
+                <div class="spacing task10-main-box-shape">
+                    <span class="form-span">是否是微信群群主：</span>
+                </div>
+                <div class="spacing task10-main-box-shape">
+                    <input id="shape3" name="isWechat" type="radio"  value="true" />
+                    <label class="form-span" for="shape3">是</label>
+                    <input id="shape4" name="isWechat" type="radio"  value="false" />
+                    <label class="form-span" for="shape4" style="margin-right: 0">否</label>
+                </div>
+                <div class="spacing task10-main-box-shape">
+                    <span class="form-span" style="font-size: 1.6rem;margin-right: 0">为什么申请Picker，简单描述你的优势</span>
+                </div>
+                <div class="spacing task10-main-box-shape">
+                <textarea name="advantage" class="form-textarea" rows="5" required="required"></textarea>
+                </div>
+                <div class="spacing">
+                    <span class="form-span">验证码</span><input name="captchaCode" style="width: 30%" class="form-control">
+                    <img id="validateImg" style="width:26%;cursor: pointer;vertical-align: bottom" src=""/>
+                </div>
+            </form>
+        </div>
+        <div  class="save-btn" >提交申请</div>
+    </div>
+
+
+    <iframe id="id_iframe" name="nm_iframe" style="display:none;"></iframe>
+</body>
+<script type="text/javascript" src="libs/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="libs/jquery.toast.min.js"></script>
+<script>
+    var finalRes;
+    var $dialog = $('.fun-dialog')
+    var $save = $('.save-btn');
+    var $form = $('#fromSave');
+
+    $save.click(function () {
+        $form.submit()
+    })
+
+    function beforeSubmit(form) {
+        if (!form.name.value || form.name.value == '') {
+            toast('请输入姓名')
+            form.name.focus();
+            return false;
+        }
+        if (!form.gender.value || form.gender.value == '') {
+            toast('请选择性别')
+            return false;
+        }
+        if (!form.job.value || form.job.value == '') {
+            toast('请输入职业')
+            form.job.focus();
+            return false;
+        }
+        if (!form.phone.value || form.phone.value == '') {
+            toast('请输入电话')
+            form.phone.focus();
+            return false;
+        }
+        if (!form.state.value || form.state.value == '') {
+            toast('请选择州')
+            form.state.focus();
+            return false;
+        }
+        if (!form.city.value || form.city.value == '') {
+            toast('请输入市')
+            form.city.focus();
+            return false;
+        }
+        if (!form.isWechat.value || form.isWechat.value == '') {
+            toast('请选择是否是微信群群主')
+            return false;
+        }
+        if (!form.advantage.value || form.advantage.value == '') {
+            toast('请描述你的优势')
+            form.advantage.focus();
+            return false;
+        }
+        if (!form.captchaCode.value || form.captchaCode.value == '') {
+            toast('请输入验证码')
+            form.captchaCode.focus();
+            return false;
+        }
+        finalRes = $("#fromSave").serializeArray().reduce(function(result, item){
+             result[item.name] = item.value;
+             return result;
+             }, {})
+            $.ajax({
+                type: 'POST',
+                url: '/funtree/register_picker.html',
+                data: finalRes ,
+                dataType: 'json',
+                success: function(res){
+                    if(res.success){
+                        $(".lbOverlay").show()
+                        $dialog.show();
+                    }else{
+                        toast(res.message,'error')
+                    }
+                },
+            })
+        }
+
+    function toast(message,level) {
+        $.toast({
+            heading: message,
+            position: {
+                left: '25%',
+                top: '20%'
+            },
+            textAlign: 'center',
+            stack: 2,
+            loader:false,
+            allowToastClose:false
+//            icon: level
+        });
+    }
+    $(function () {
+        var $select = $('#selectList');
+        var $img = $('#validateImg')
+        var $close = $('.fun-close')
+        var selectList = [
+            "Alabama",
+            "Alaska",
+            "Arizona",
+            "Arkansas",
+            "California",
+            "Colorado",
+            "Connecticut",
+            "Delaware",
+            "District of Columbia",
+            "Florida",
+            "Georgia",
+            "Hawaii",
+            "Idaho",
+            "Illinois",
+            "Indiana",
+            "Iowa",
+            "Kansas",
+            "Kentucky",
+            "Louisiana",
+            "Maine",
+            "Maryland",
+            "Massachusetts",
+            "Michigan",
+            "Minnesota",
+            "Mississippi",
+            "Missouri",
+            "Montana",
+            "Nebraska",
+            "Nevada",
+            "New Hampshire",
+            "New Jersey",
+            "New Mexico",
+            "New York",
+            "North Carolina",
+            "North Dakota",
+            "Ohio",
+            "Oklahoma",
+            "Oregon",
+            "Pennsylvania",
+            "Rhode Island",
+            "South Carolina",
+            "South Dakota",
+            "Tennessee",
+            "Texas",
+            "Utah",
+            "Vermont",
+            "Virginia",
+            "Washington State",
+            "West Virginia",
+            "Wisconsin",
+            "Wyoming",
+            "Puerto Rico"
+        ];
+
+        getImg()
+
+        function getImg() {
+            $.ajax({
+                type:'GET',
+                url:'/funtree/get_image_captcha.html',
+                success:function (res) {
+                    $img.attr('src',res.data.img);
+                }
+            })
+        }
+
+        $img.click(function () {
+            getImg()
+        })
+
+        var template;
+        for(var i=0;i<selectList.length;i++){
+            template += '<option>'+selectList[i]+'</option>'
+        }
+        $select.append(template)
+
+
+        $close.click(function () {
+            location.reload();
+        })
+
+    })
+</script>
+</html>

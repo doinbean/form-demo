@@ -1,0 +1,148 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+img,div{
+    margin: 0;
+    padding: 0;
+}
+html{
+    font-size: 62.5%;
+    background-color: #fef2b5;
+}
+img{max-width: 100%;height: auto;width: auto;}
+.fun-header{
+    background: #fff;
+    padding: 8px 0;
+    position: relative;
+}
+
+.fun-footer{
+    padding: 40px 0 20px 0;
+    background-color: #ffcb06;
+}
+.fun-footer .content{
+    width: 90%;
+    padding: 5% 0;
+    margin: 0 auto;
+    background-color: #fff;
+}
+.form-control{
+    /*-webkit-appearance:none;*/
+    display: inline-block;
+    width: 70%;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+    -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+.fun-close{
+    padding: 10px;
+    background-color: #ff7419;
+    color: #fff;
+    cursor: pointer;
+    letter-spacing: 2px;
+}
+.fun-dialog{
+    width: 80%;
+    margin: 0 auto;
+    background: #fff;
+    position: fixed;
+    top:40%;
+    left: 10%;
+    z-index: 999;
+    text-align: center;
+    font-size: 1.6rem
+}
+.lbOverlay{
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    zoom: 1;
+    background: black;
+    z-index: 99;
+    width:100%;
+    height:100%;
+    filter:alpha(opacity=70); /*IE滤镜，透明度50%*/
+    -moz-opacity:0.7; /*Firefox私有，透明度50%*/
+    opacity:0.7;/*其他，透明度50%*/
+}
+.form-span{
+    font-size: 2rem;
+    vertical-align: sub;
+    color: #833f11;
+    margin-right: 3%;
+}
+.form-textarea{
+    font-size: 1.8rem;
+    width: 100%;
+    border: 2px solid #ffcb06;
+}
+.spacing{
+    margin: 8% 5%;
+}
+
+.holder-phone{
+    position: absolute;
+    left: 19%;
+    bottom: 19%;
+    font-size: 1.4rem;
+}
+
+.save-btn{
+    font-size: 1.6rem;
+    width: 60%;
+    margin: 0 auto;
+    margin-top: 20px;
+    background-color: #ff7419;
+    color: #fff;
+    padding: 8px 0;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.task10-main-box-shape input[type="radio"]{
+    display: none;
+    /*隐藏默认按钮的样式,这跟其他隐藏默认按钮的样式的方法不一样，注意一下*/
+}
+
+.task10-main-box-shape label{  /*这里是设置文字的样式*/
+    cursor: pointer;
+    position: relative;
+    padding-left: 3rem;
+}
+.task10-main-box-shape label:before { /*这里是没被选中时候按钮的样式*/
+    content: "";
+    /*将要自定义的东西设置为空的字符串，就可以往里面随意加定义的样式了*/
+    display: inline-block;
+    background-color: #FFFFFF; /*设置背景*/
+    padding:0.8rem; /*撑开背景，就是中间那块白色的*/
+    border: 1px solid gray;
+    margin-right: 10px;
+    position: absolute;
+    left: 0;
+    bottom: 3px;
+    border-radius: 50%; /*设置圆角*/
+
+}
+
+input[type=radio]:checked + label:before {/*按钮被选中之后的样式，多了一个checked*/
+    font-size: 1px;
+    color: #FFFFFF;
+    padding:0.3rem;
+    border:0.7rem solid #ff7419;
+    /*设置按钮样式*/
+}
+
+
