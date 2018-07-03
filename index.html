@@ -20,10 +20,14 @@
         <p style="margin-bottom: 20px">我们会尽快通过电话联系您</p>
         <p class="fun-close">好的</p>
     </div>
+    <div style="position: relative;height: 80px">
+        <img class="fun-down" src="image/fun_down.png">
+    </div>
     <div class="fun-footer">
         <div class="content">
+            <img class="fun-text" src="image/fun_text.png">
             <form id="fromSave" name="fromSave" action="/form_demo/register_picker.html" target="nm_iframe" onsubmit="return beforeSubmit(this);">
-                <div class="spacing">
+                <div style="margin-top: 15%" class="spacing">
                     <span class="form-span">姓名</span><input name="name" class="form-control">
                 </div>
                 <div class="spacing task10-main-box-shape">
@@ -132,10 +136,13 @@
             form.captchaCode.focus();
             return false;
         }
+        console.log($("#fromSave").serializeArray())
+        console.log(JSON.stringify($("#fromSave").serializeArray()))
         finalRes = $("#fromSave").serializeArray().reduce(function(result, item){
              result[item.name] = item.value;
              return result;
              }, {})
+        console.log(finalRes)
             $.ajax({
                 type: 'POST',
                 url: '/from_demo/register_picker.html',
@@ -172,57 +179,7 @@
         var $close = $('.fun-close')
         var selectList = [
             "Alabama",
-            "Alaska",
-            "Arizona",
-            "Arkansas",
-            "California",
-            "Colorado",
-            "Connecticut",
-            "Delaware",
-            "District of Columbia",
-            "Florida",
-            "Georgia",
-            "Hawaii",
-            "Idaho",
-            "Illinois",
-            "Indiana",
-            "Iowa",
-            "Kansas",
-            "Kentucky",
-            "Louisiana",
-            "Maine",
-            "Maryland",
-            "Massachusetts",
-            "Michigan",
-            "Minnesota",
-            "Mississippi",
-            "Missouri",
-            "Montana",
-            "Nebraska",
-            "Nevada",
-            "New Hampshire",
-            "New Jersey",
-            "New Mexico",
-            "New York",
-            "North Carolina",
-            "North Dakota",
-            "Ohio",
-            "Oklahoma",
-            "Oregon",
-            "Pennsylvania",
-            "Rhode Island",
-            "South Carolina",
-            "South Dakota",
-            "Tennessee",
-            "Texas",
-            "Utah",
-            "Vermont",
-            "Virginia",
-            "Washington State",
-            "West Virginia",
-            "Wisconsin",
-            "Wyoming",
-            "Puerto Rico"
+            "Alaska"
         ];
 
         getImg()
@@ -230,7 +187,7 @@
         function getImg() {
             $.ajax({
                 type:'GET',
-                url:'/funtree/get_image_captcha.html',
+                url:'/from_demo/get_image_captcha.html',
                 success:function (res) {
                     $img.attr('src',res.data.img);
                 }

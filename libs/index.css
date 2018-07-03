@@ -22,10 +22,26 @@ img{max-width: 100%;height: auto;width: auto;}
     background-color: #ffcb06;
 }
 .fun-footer .content{
+    position: relative;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
     width: 90%;
     padding: 5% 0;
     margin: 0 auto;
+    margin-top: 10%;
     background-color: #fff;
+}
+.fun-text{
+    width: 90%;
+    position: absolute;
+    top: -4%;
+    left: 5%;
+}
+.fun-down{
+    width: 20%;
+    position: absolute;
+    left: 40%;
+    bottom: -30px;
 }
 .form-control{
     /*-webkit-appearance:none;*/
